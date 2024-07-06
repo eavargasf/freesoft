@@ -60,11 +60,52 @@
             padding: 20px 0;
             margin-top: 40px;
         }
+        .search-bar {
+            margin: 20px;
+            text-align: center;
+        }
+        .category, .software {
+            margin: 10px 0;
+        }
+        .software-info {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 100px);
+        }
+        .software img {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .software-info h3, .software-info p {
+            margin: 0;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>FreeSoft</h1>
     <p>Open Source Software Marketplace</p>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for software...">
+    </div>
+
+    <div id="softwareList">
     <div class="category">
         <h2>Web Development</h2>
         <div class="software">
@@ -478,6 +519,33 @@
 
 
     </div>
+        <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            var filter = this.value.toLowerCase();
+            var categories = document.querySelectorAll('.category');
+            
+            categories.forEach(function(category) {
+                var software = category.querySelectorAll('.software');
+                var found = false;
+                
+                software.forEach(function(item) {
+                    var text = item.innerText.toLowerCase();
+                    if (text.includes(filter)) {
+                        item.classList.remove('hidden');
+                        found = true;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+                
+                if (found) {
+                    category.classList.remove('hidden');
+                } else {
+                    category.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
  <footer>
         <div class="container">
